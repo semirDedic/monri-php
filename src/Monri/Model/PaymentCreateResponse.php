@@ -6,52 +6,54 @@ class PaymentCreateResponse
 {
 
     /**
-     * @var string
+     * @var string | null
      */
     private $id;
     /**
-     * @var string
+     * @var string | null
      */
     private $clientSecret;
     /**
-     * @var string
+     * @var string | null
      */
     private $status;
 
     /**
-     * @param string $id
-     * @param string $clientSecret
-     * @param string $status
+     * @param string|null $id
+     * @param string|null $clientSecret
+     * @param string|null $status
      */
-    public function __construct(string $id, string $clientSecret, string $status)
-    {
+    public function __construct(
+        ?string $id,
+        ?string $clientSecret,
+        ?string $status
+    ) {
         $this->id = $id;
         $this->clientSecret = $clientSecret;
         $this->status = $status;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getClientSecret(): string
+    public function getClientSecret(): ?string
     {
         return $this->clientSecret;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         return $this->status;
     }
-
 }

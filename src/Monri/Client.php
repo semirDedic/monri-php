@@ -5,8 +5,6 @@ namespace Monri;
 use Monri\Api\AccessTokens;
 use Monri\Api\Customers;
 use Monri\Api\Payments;
-use Monri\Api\Tokens;
-use Monri\Api\Transactions;
 use Monri\Exception\MonriException;
 
 class Client
@@ -39,11 +37,6 @@ class Client
      * @var Tokens
      */
     private $tokens;
-
-    /**
-     * @var Transactions
-     */
-    private $transactions;
 
     /**
      * @var HttpClient
@@ -101,32 +94,6 @@ class Client
             $this->customers = new Customers($this->config, $this->httpClient(), $this->accessTokens());
         }
         return $this->customers;
-    }
-
-    /**
-     * @return Tokens
-     * @throws MonriException if configuration is not set
-     */
-    public function tokens(): Tokens
-    {
-        $this->ensureConfigSet();
-        if ($this->tokens == null) {
-            $this->tokens = new Tokens($this->config, $this->httpClient(), $this->accessTokens());
-        }
-        return $this->tokens;
-    }
-
-    /**
-     * @return Transactions
-     * @throws MonriException if configuration is not set
-     */
-    public function transactions(): Transactions
-    {
-        $this->ensureConfigSet();
-        if ($this->tokens == null) {
-            $this->transactions = new Transactions($this->config, $this->httpClient(), $this->accessTokens());
-        }
-        return $this->transactions;
     }
 
     public function validateCallback($header, $body, $options = array())

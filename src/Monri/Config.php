@@ -75,12 +75,10 @@ class Config
     {
         if ($this->environment == 'test') {
             return 'https://ipgtest.monri.com';
-        } else if ($this->environment == 'production') {
+        } elseif ($this->environment == 'production') {
             return 'https://ipg.monri.com';
         } else {
             throw new \Monri\Exception\MonriException("Environment=$this->environment not supported");
         }
     }
-
-
 }

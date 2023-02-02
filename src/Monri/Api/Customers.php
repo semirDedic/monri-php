@@ -63,6 +63,7 @@ class Customers extends AuthenticationApi
 
     /**
      * @throws MonriException
+     * @throws \Exception
      */
     public function paymentMethods($id): PaymentMethodsResponse
     {
@@ -75,7 +76,8 @@ class Customers extends AuthenticationApi
         if ($response->isFailed()) {
             throw $response->getException();
         } else {
-            return new PaymentMethodsResponse($response->getBody()['data'], $response->getBody()['status']);
+            $body = $response->getBody();
+            return new PaymentMethodsResponse($body['data'] ?? [], $body['status'] ?? 'invalid-request');
         }
     }
 

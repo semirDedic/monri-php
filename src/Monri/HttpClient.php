@@ -37,8 +37,12 @@ class HttpClient
      * @param array $request_headers
      * @return ApiHttpResponse
      */
-    private function request(string $method, string $url, ?array $body = array(), array $request_headers = array()): ApiHttpResponse
-    {
+    private function request(
+        string $method,
+        string $url,
+        ?array $body = array(),
+        array  $request_headers = array()
+    ): ApiHttpResponse {
         $ch = curl_init($this->buildUrl($url));
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         if ($method == 'POST') {
