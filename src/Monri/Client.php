@@ -96,11 +96,6 @@ class Client
         return $this->customers;
     }
 
-    public function validateCallback($header, $body, $options = array())
-    {
-        //create_validate_callback . validate(header, body, options)
-    }
-
     /**
      * @param mixed $merchantKey
      */
@@ -147,12 +142,4 @@ class Client
         return $this->httpClient;
     }
 
-    private function createValidateCallback()
-    {
-        return new ValidateCallb();
-//if @validate_callback_action != nil
-//  return @validate_callback_action
-//}
-//
-    }
 }

@@ -5,7 +5,7 @@ namespace Monri\Model;
 class PaymentMethodsResponse
 {
     /**
-     * @var array
+     * @var array<PaymentMethod>
      */
     private $data;
     /**

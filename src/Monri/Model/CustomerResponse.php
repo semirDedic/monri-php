@@ -7,7 +7,7 @@ class CustomerResponse
     /**
      * @var string
      */
-    private $uuid;
+    private $id;
     /**
      * @var string
      */
@@ -53,7 +53,7 @@ class CustomerResponse
      */
     private $address;
     /**
-     * @var string
+     * @var array
      */
     private $metadata;
     /**
@@ -100,13 +100,12 @@ class CustomerResponse
         ?string $country,
         ?string $zipCode,
         ?string $address,
-        ?string $metadata,
+        ?array $metadata,
         ?string $createdAt,
         ?string $updatedAt,
         ?string $deletedAt
-    )
-    {
-        $this->uuid = $uuid;
+    ) {
+        $this->id = $uuid;
         $this->merchantCustomerId = $merchantCustomerId;
         $this->description = $description;
         $this->email = $email;
@@ -127,9 +126,9 @@ class CustomerResponse
     /**
      * @return string|null
      */
-    public function getUuid(): ?string
+    public function getId(): ?string
     {
-        return $this->uuid;
+        return $this->id;
     }
 
     /**
@@ -221,9 +220,9 @@ class CustomerResponse
     }
 
     /**
-     * @return string|null
+     * @return array|null
      */
-    public function getMetadata(): ?string
+    public function getMetadata(): ?array
     {
         return $this->metadata;
     }

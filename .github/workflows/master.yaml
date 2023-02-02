@@ -1,0 +1,41 @@
+on: ["push", "pull_request"]
+name: Main Workflow
+
+jobs:
+  run:
+    name: Run
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: [ 7.3, 7.4, 8.0 ]
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: composer:v1
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+#          # Disabling shallow clone to improve relevancy of SonarCloud reporting
+#          fetch-depth: 0
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run all tests
+        run: vendor/bin/phpunit --log-junit build/tests-log.xml
+
+      # PHPUnit generates absolute file paths and SonarCloud expects relative file paths. This command removes the
+      # current working directory from the report files.
+      - name: Clean up reports
+        run: sed -i "s;`pwd`/;;g" build/*.xml
+
+      - name: Run PHP Code Sniffer
+        run: vendor/bin/phpcs

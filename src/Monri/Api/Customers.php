@@ -5,6 +5,7 @@ namespace Monri\Api;
 use Monri\ApiHttpResponse;
 use Monri\Exception\MonriException;
 use Monri\Model\CustomerResponse;
+use Monri\Model\PaymentMethod;
 use Monri\Model\PaymentMethodsResponse;
 
 class Customers extends AuthenticationApi
@@ -77,10 +78,27 @@ class Customers extends AuthenticationApi
             throw $response->getException();
         } else {
             $body = $response->getBody();
-            return new PaymentMethodsResponse($body['data'] ?? [], $body['status'] ?? 'invalid-request');
+            $data = $body['data'] ?? [];
+            $mapped = array_map('Monri\Api\Customers::mapPaymentMethod', $data);
+            return new PaymentMethodsResponse($mapped, $body['status'] ?? 'invalid-request');
         }
     }
 
+    private static function mapPaymentMethod($pm): PaymentMethod
+    {
+        return new PaymentMethod(
+            $pm['status'] ?? null,
+            $pm['id'] ?? null,
+            $pm['masked_pan'] ?? null,
+            $pm['expiration_date'] ?? null,
+            $pm['keep_until'] ?? null,
+            $pm['created_at'] ?? null,
+            $pm['updated_at'] ?? null,
+            $pm['customer_uuid'] ?? null,
+            $pm['token'] ?? null,
+            $pm['expired'] ?? null
+        );
+    }
 
     /**
      * @param ApiHttpResponse $response

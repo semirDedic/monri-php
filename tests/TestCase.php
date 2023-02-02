@@ -15,8 +15,8 @@ class TestCase extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->client = new Client();
-        $this->client->setMerchantKey('qwert1234');
-        $this->client->setAuthenticityToken('7db11ea5d4a1af32421b564c79b946d1ead3daf0');
+        $this->client->setMerchantKey('TestKeyXULLyvgWyPJSwOHe');
+        $this->client->setAuthenticityToken('6a13d79bde8da9320e88923cb3472fb638619ccb');
         $this->client->setEnvironment('test');
     }
 }
