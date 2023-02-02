@@ -82,7 +82,6 @@ class HttpClient
         );
         $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $response_as_json = self::convertBodyToJson($result);
-        var_dump($response_as_json);
         $exception = null;
         if (curl_errno($ch)) {
             $exception = new MonriException("Curl error=$$curl_err");

@@ -15,10 +15,11 @@ class CustomersTest extends \Monri\Tests\TestCase
      */
     public function testCreate()
     {
+        $id = random_int(100000, 999999) . "";
         $response = $this->client->customers()->create([
             'email' => 'email@email.com',
             'name' => 'name',
-            'merchant_customer_id' => 'moj-id'
+            'merchant_customer_id' => $id
         ]);
         $this->assertNotNull($response);
         $this->assertNotNull($response->getId());
@@ -114,6 +115,5 @@ class CustomersTest extends \Monri\Tests\TestCase
         $this->assertNotNull($response->getStatus());
         $this->assertTrue(is_array($response->getData()));
         $this->assertEquals('approved', $response->getStatus());
-        var_dump($response);
     }
 }
