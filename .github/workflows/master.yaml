@@ -1,5 +1,5 @@
 on: ["push", "pull_request"]
-name: Main Workflow
+name: Master Workflow
 
 jobs:
   run:
@@ -19,7 +19,7 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
-        with:
+#         with:
 #          # Disabling shallow clone to improve relevancy of SonarCloud reporting
 #          fetch-depth: 0
 
