@@ -26,6 +26,63 @@ class CustomersApi extends AuthenticationApi
      * @throws MonriException
      * @throws \Exception
      */
+    public function retrieve($uuid): CustomerResponse
+    {
+        if (!is_string($uuid)) {
+            throw new MonriException('UUID should be a string');
+        }
+
+        $accessToken = $this->accessTokens->create(['scopes' => ['customers']])->getAccessToken();
+        $response = $this->httpClient->get("/v2/customers/$uuid", ['oauth' => $accessToken]);
+        if ($response->isFailed()) {
+            throw $response->getException();
+        } else {
+            return self::createCustomer($response);
+        }
+    }
+
+    /**
+     * @throws MonriException
+     * @throws \Exception
+     */
+    public function update($uuid, $params): CustomerResponse
+    {
+        if (!is_string($uuid)) {
+            throw new MonriException('UUID should be a string');
+        }
+
+        $accessToken = $this->accessTokens->create(['scopes' => ['customers']])->getAccessToken();
+        $response = $this->httpClient->post("/v2/customers/$uuid", $params, ['oauth' => $accessToken]);
+        if ($response->isFailed()) {
+            throw $response->getException();
+        } else {
+            return self::createCustomer($response);
+        }
+    }
+
+    /**
+     * @throws MonriException
+     * @throws \Exception
+     */
+    public function delete($uuid): CustomerResponse
+    {
+        if (!is_string($uuid)) {
+            throw new MonriException('UUID should be a string');
+        }
+
+        $accessToken = $this->accessTokens->create(['scopes' => ['customers']])->getAccessToken();
+        $response = $this->httpClient->delete("/v2/customers/$uuid", ['oauth' => $accessToken]);
+        if ($response->isFailed()) {
+            throw $response->getException();
+        } else {
+            return self::createCustomer($response);
+        }
+    }
+
+    /**
+     * @throws MonriException
+     * @throws \Exception
+     */
     public function findByMerchantId($id): CustomerResponse
     {
         if (!is_string($id)) {
@@ -39,7 +96,7 @@ class CustomersApi extends AuthenticationApi
         } else {
             return self::createCustomer($response);
         }
-    }
+    }    
 
     /**
      * @throws MonriException

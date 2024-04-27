@@ -31,6 +31,11 @@ class HttpClient
         return $this->request('POST', $url, $body, $headers);
     }
 
+    public function delete(string $url, array $headers): ApiHttpResponse
+    {
+        return $this->request('DELETE', $url, null, $headers);
+    }
+
     /**
      * @param string $method
      * @param string $url
